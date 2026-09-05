@@ -1,0 +1,28 @@
+# 3b. クラス図 — モジュール依存 (cnnOptimizer)
+
+```mermaid
+classDiagram
+    class Runner {
+        +validate_input()
+        +execute_logic()
+        +format_output()
+    }
+    class Objective {
+        +suggest_params()
+        +objective()
+    }
+    class ResultsDB {
+        +save_trial()
+        +best_trial()
+    }
+    class Visualizer {
+        +main()
+    }
+    class DataLoader {
+        +load_mnist_numpy()
+    }
+    Runner ..> Objective : 最適化依頼
+    Objective ..> ResultsDB : 記録・取得
+    Runner ..> Visualizer : 描画依頼
+    Objective ..> DataLoader : データ取得
+```

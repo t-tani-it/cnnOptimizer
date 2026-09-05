@@ -1,0 +1,17 @@
+# 1. フローチャート — 実験全体の処理フロー (cnnOptimizer)
+
+```mermaid
+flowchart TD
+    A(["Start: python -m keras_version.run"]) --> B[common/seed.py: set_seed<br>乱数固定]
+    B --> C[optuna.create_study<br>SQLite保存・再開可能]
+    C --> D["objective: suggest_params<br>1組の条件提示"]
+    D --> E[build_model<br>Conv-BN-Act-Pool-Drop]
+    E --> F["fit max40epoch<br>ES+ReduceLR+Pruning"]
+    F --> G[save_trial<br>results.db記録]
+    G --> H{"残Trialあり?"}
+    H -->|Yes| D
+    H -->|No| I[best_trial確認]
+    I --> J[train.py再学習]
+    J --> K[Test最終評価1回]
+    K --> L[history/importance描画]
+```
