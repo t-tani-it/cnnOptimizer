@@ -35,3 +35,7 @@ Optuna UI代替: `results/history_*.png` `results/importance_*.png`参照。
 ## 対応関係・変更点
 詳細は `docs/old_vs_modern.md`(ローカルのみ、Push除外)を参照。
 要旨: 総当たり→TPE、fit_generator→fit/Loader、TXT/TinyDB→SQLite、Testリーク修正、Mish現代化。
+
+## 旧コード(sample/)
+4年前の実験コード保存場所。参照専用・改変禁止(公開のための可搬化1行を除く)。
+詳細は `docs/old_vs_modern.md`(ローカルのみ)を参照。
