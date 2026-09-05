@@ -1,4 +1,4 @@
-# Why: Optuna探索の中核 / What: suggest・学習・報告・保存 / Assumption: GPU自動 / I-O: trial->val_acc / Caution: Test不使用 / Future: なし / Change Log: 2026-09-05 new
+# Why: Optuna探索の中核 / What: suggest・学習・報告・保存 / Assumption: GPU自動 / I-O: trial->val_acc / Caution: Test不使用 / Future: なし / Change Log: 2026-09-05 new; 2026-09-06 fix optuna-integration分離対応
 """Keras用Optuna objective。"""
 
 from __future__ import annotations
@@ -7,6 +7,14 @@ import time
 
 import keras
 import optuna
+
+try:
+    from optuna_integration.tfkeras import TFKerasPruningCallback
+except ImportError:
+    try:
+        from optuna_integration import TFKerasPruningCallback
+    except ImportError:
+        from optuna.integration import TFKerasPruningCallback
 
 from common.config import (
     EARLY_PATIENCE,
@@ -96,7 +104,7 @@ def execute_logic(trial: optuna.Trial) -> float:
         keras.callbacks.ReduceLROnPlateau(
             monitor="val_loss", factor=LR_FACTOR, patience=LR_PATIENCE, min_lr=MIN_LR
         ),
-        optuna.integration.TFKerasPruningCallback(trial, "val_accuracy"),
+        TFKerasPruningCallback(trial, "val_accuracy"),
     ]
     hist = model.fit(
         xtr,

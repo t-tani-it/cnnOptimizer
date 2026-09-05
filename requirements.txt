@@ -3,6 +3,7 @@ keras>=3.10.0
 torch>=2.3.0
 torchvision>=0.18.0
 optuna>=4.0.0
+optuna-integration[tfkeras]>=4.0.0
 numpy>=1.26.0
 scikit-learn>=1.4.0
 matplotlib>=3.8.0
