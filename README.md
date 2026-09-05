@@ -1,6 +1,9 @@
 # mnist-cnn-optuna
 
-4年前MNIST CNN実験の現代版再構築。Keras 3 + OptunaとPyTorch + Optunaで同一条件比較する。
+Keras 3 + OptunaとPyTorch + Optunaで同一条件比較する。
+
+4年前、自身で作成したMNIST CNNハイパーパラメータ探索をループ処理で構築した(主にKerasを使用)。
+本リポジトリは上記の現代版再構築を目的としている。
 
 ## 概要
 - MNIST 10分類、28x28x1、0-1正規化、Train/Val/Test分離
