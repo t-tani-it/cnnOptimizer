@@ -4,10 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import os
 
 import optuna
 
-from common.config import N_TRIALS_DEFAULT, OPTUNA_DB
+from common.config import N_TRIALS_DEFAULT, OPTUNA_DB, RESULTS_DB
 from common.seed import set_seed
 from common.visualize import main as viz
 
@@ -30,6 +31,10 @@ def execute_logic(args: argparse.Namespace) -> optuna.Study:
         完了Study。
     """
     set_seed()
+    # 解説: 保存先が無いとsave・Study作成で失敗するため先に確保する
+    os.makedirs(os.path.dirname(OPTUNA_DB) or ".", exist_ok=True)
+    os.makedirs(os.path.dirname(RESULTS_DB) or ".", exist_ok=True)
+    os.makedirs("models", exist_ok=True)
     # 解説: 総当たりでなくTPE、MedianPrunerで早期打切り
     study = optuna.create_study(
         study_name=args.study,

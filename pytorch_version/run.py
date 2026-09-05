@@ -4,10 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import os
 
 import optuna
 
-from common.config import N_TRIALS_DEFAULT, OPTUNA_DB
+from common.config import N_TRIALS_DEFAULT, OPTUNA_DB, RESULTS_DB
 from common.seed import set_seed
 from common.visualize import main as viz
 
@@ -27,6 +28,10 @@ def main() -> None:
     if a.n_trials <= 0:
         raise ValueError("n_trials must be >0")
     set_seed()
+    # 解説: 保存先が無いとsave・Study作成で失敗するため先に確保する
+    os.makedirs(os.path.dirname(OPTUNA_DB) or ".", exist_ok=True)
+    os.makedirs(os.path.dirname(RESULTS_DB) or ".", exist_ok=True)
+    os.makedirs("models", exist_ok=True)
     study = optuna.create_study(
         study_name=a.study,
         storage=f"sqlite:///{OPTUNA_DB}",
