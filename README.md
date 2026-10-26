@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="charts/cnnOptimizer：OptunaでCNN学習を探索.png" alt="cnnOptimizerの紹介バナー">
+</p>
+
 # mnist-cnn-optuna
 
 Keras 3 + OptunaとPyTorch + Optunaで同一条件比較する。
